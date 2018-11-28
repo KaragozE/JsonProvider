@@ -24,7 +24,7 @@ namespace JsonProvider
             Rtext.Text += "[";
         }
         #region Add New Text
-        int A = 2, B = 2, C = 2, D = 2, E = 2;
+        int A = 2, B = 2, C = 2, D = 2, E = 2, F = 2;
         private void Add_Click(object sender, EventArgs e)
         {
             // + click button to add new text box
@@ -33,6 +33,7 @@ namespace JsonProvider
             AddNewComboBox();
             AddButton();
             DelButton();
+            AddNewCheckBox();
         }
         List<TextBox> TextBoxAdded = new List<TextBox>();
         public System.Windows.Forms.TextBox AddNewTextBox()
@@ -97,6 +98,7 @@ namespace JsonProvider
                 AddNewTextBox2();
                 AddNewComboBox();
                 DelButton();
+                AddNewCheckBox();
             };
             return Bt;
         }
@@ -114,6 +116,19 @@ namespace JsonProvider
             Del.Click += new EventHandler(Correction1);
             return Del;
         }
+        List<CheckBox> CheckBoxAdded = new List<CheckBox>();
+        public CheckBox AddNewCheckBox()
+        {
+            CheckBox chB = new CheckBox();
+            this.Controls.Add(chB);
+            chB.Top = (F * 28);
+            chB.Left = 420;
+            chB.Name = "Randm" + this.F.ToString();
+            chB.Text = "";
+            F = F + 1;
+            CheckBoxAdded.Insert(0, chB);
+            return chB;
+        }
         private void DeleteButton(object sender, EventArgs e)
         {
             Button Del = (sender as Button);
@@ -123,10 +138,12 @@ namespace JsonProvider
             Control[] cntrls2 = this.Controls.Find("tbData" + name, false);
             Control[] cntrls3 = this.Controls.Find("comboBox" + name, false);
             Control[] cntrls4 = this.Controls.Find("Button" + name, false);
+            Control[] cntrls5 = this.Controls.Find("Randm" + name, false);
             TextBox txt = cntrls1[0] as TextBox;
             TextBox txt2 = cntrls2[0] as TextBox;
             ComboBox cb = cntrls3[0] as ComboBox;
             Button Bt = cntrls4[0] as Button;
+            CheckBox chB = cntrls5[0] as CheckBox;
             if (this.Controls.Contains(txt))
             {
                 this.Controls.Remove(Bt);
@@ -134,13 +151,14 @@ namespace JsonProvider
                 this.Controls.Remove(txt2);
                 this.Controls.Remove(txt);
                 this.Controls.Remove(Del);
+                this.Controls.Remove(chB);
             }
         }
         #endregion
         private void Correction1(object sender, EventArgs e)
         {
             Control.ControlCollection controlList = this.Controls;
-            int i = 2, j = 2, k = 0, l = 2, m = 2, n = 2;
+            int i = 2, j = 2, k = 0, l = 2, m = 2, n = 2, p = 2;
             for (int q = 2; q < A; q++)
             {
 
@@ -180,6 +198,12 @@ namespace JsonProvider
                         item.Top = 28 * n;
                         n++;
                     }
+                    if (item.Name == "Randm" + q.ToString())
+                    {
+                        item.Name = "Randm" + p.ToString();
+                        item.Top = 28 * p;
+                        p++;
+                    }
                 }
             }
             A = A - 1;
@@ -187,11 +211,28 @@ namespace JsonProvider
             C--;
             D--;
             E--;
+            F--;
         }
         private void ClearRText_Click(object sender, EventArgs e)
         {
+            Clear();
+        }
+        public void Clear()
+        {
+
             Rtext.Text = string.Empty;
             Rtext.Text += "[";
+
+        }
+        public static string GenerateCoupon(int length, Random random)
+        {
+            string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            StringBuilder result = new StringBuilder(length);
+            for (int i = 0; i < length; i++)
+            {
+                result.Append(characters[random.Next(characters.Length)]);
+            }
+            return result.ToString();
         }
         public void Calculation()
         {
@@ -203,42 +244,74 @@ namespace JsonProvider
             List<string> Array1 = new List<string>();
             List<string> Array2 = new List<string>();
             List<string> ComBox = new List<string>();
-
-            int i = 1, j = 1, k = 0, l = 1;
+            List<string> ChBox = new List<string>();
+            int i = 1, j = 1, k = 0, l = 1, m = 1;
             foreach (Control item in controlList)
             {
-                //Keys
                 if (item.Name == "tbCName" + i.ToString())
                 {
                     Array1.Add(item.Text);
                     i++;
                 }
-
-                //Values
                 if (item.Name == "tbData" + j.ToString())
                 {
                     Array2.Add(item.Text);
                     j++;
                 }
-                //String or Int
                 if (item.Name == "comboBox" + l.ToString())
                 {
                     ComBox.Add(item.Text);
                     l++;
                 }
+                if (item.Name == "Randm" + m.ToString())
+                {
+                    ChBox.Add(((CheckBox)item).Checked.ToString());
+                    m++;
+                    MessageBox.Show(((CheckBox)item).Checked.ToString());
+                }
             }
-
             //Creates objects from keys and values
-
             // **** kvObjList.Select(x => x.Key).ToArray<string>();****
             string[] ArrayJ1 = Array1.ToArray();
             string[] ArrayJ2 = Array2.ToArray();
             string[] CombBox = ComBox.ToArray();
+            string[] ChecBox = ChBox.ToArray();
             #endregion
+            for (int r = 0; r < Array1.Count; r++)
+            {
+                if (ChecBox[r] == "True")
+                {
+                    if (CombBox[r] == "string")
+                    {
+                        Random rnd = new Random();
+                        string[] coupon = new string[1];
+                        for (int g = 0; g < coupon.Length; g++)
+                        {
+                            coupon[g] = GenerateCoupon(15, rnd);
+                        }
+
+                        ArrayJ2[r] = coupon[0] ;
+                        MessageBox.Show(coupon[0]);
+                    }
+                    else if (CombBox[r] == "int")
+                    {
+                        Random NumGen = new Random();
+                        int Num = NumGen.Next(1, 10000000);
+
+                        ArrayJ2[r] = Num.ToString();
+                        MessageBox.Show(Num.ToString());
+                    }
+                }
+            }
+
+
+
+
+
             #region String Or Int
             int[] ArrayJ3 = new int[Array1.Count];
             string[] ArrayJ4 = new string[Array1.Count];
-            foreach (string val in Array2)
+            foreach (string val in ArrayJ2)
             {
                 bool success = Int32.TryParse(val, out int number);
                 if (success)
@@ -262,6 +335,8 @@ namespace JsonProvider
                 if (ArrayJ1[q].ToString() == "" || ArrayJ2[q].ToString() == "" || CombBox[q] == "")
                 {
                     MessageBox.Show("Empty Text Box" + (q + 1) + ".line");
+                    Clear();
+                    break;
                 }
                 else
                 {
@@ -276,27 +351,39 @@ namespace JsonProvider
                         catch (Exception)
                         {
                             MessageBox.Show("Empty Text Box" + (q + 1) + ".line or wrong combobox item selected");
+                            Clear();
+                            break;
                         }
-
                     }
                     else if (CombBox[q] == "int")
                     {
-                        try
+                        if (ArrayJ3[q].ToString() == ArrayJ2[q].ToString())
                         {
-                            string Json = "\"" + ArrayJ1[q].ToString() + "\"" + ":" + ArrayJ3[q].ToString();
-                            Rtext.Text += Json;
-                            //MessageBox.Show(Json);
+                            try
+                            {
+                                string Json = "\"" + ArrayJ1[q].ToString() + "\"" + ":" + ArrayJ3[q].ToString();
+                                Rtext.Text += Json;
+                                //MessageBox.Show(Json);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Empty Text Box" + (q + 1) + ".line");
+                                Clear();
+                                break;
+                            }
                         }
-                        catch
+                        else
                         {
-                            MessageBox.Show("Empty Text Box" + (q + 1) + ".line");
+                            MessageBox.Show("Value is not integer!!!" + (q + 1) + ".line");
+                            Clear();
+                            break;
                         }
+
                     }
                     if (q < (Array1.Count - 1))
                     {
                         Rtext.Text += ",";
                     }
-
                 }
             }
             Rtext.Text += Environment.NewLine + "}";

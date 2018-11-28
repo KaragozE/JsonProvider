@@ -40,6 +40,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.TextJson = new System.Windows.Forms.TextBox();
             this.ClearRText = new System.Windows.Forms.Button();
+            this.Randm1 = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -54,7 +56,7 @@
             // Create
             // 
             this.Create.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Create.Location = new System.Drawing.Point(448, 175);
+            this.Create.Location = new System.Drawing.Point(533, 281);
             this.Create.Name = "Create";
             this.Create.Size = new System.Drawing.Size(75, 23);
             this.Create.TabIndex = 2;
@@ -85,9 +87,9 @@
             // 
             this.Rtext.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Rtext.Location = new System.Drawing.Point(15, 204);
+            this.Rtext.Location = new System.Drawing.Point(15, 310);
             this.Rtext.Name = "Rtext";
-            this.Rtext.Size = new System.Drawing.Size(508, 104);
+            this.Rtext.Size = new System.Drawing.Size(593, 104);
             this.Rtext.TabIndex = 8;
             this.Rtext.Text = "";
             // 
@@ -120,7 +122,7 @@
             // AddJson
             // 
             this.AddJson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddJson.Location = new System.Drawing.Point(448, 146);
+            this.AddJson.Location = new System.Drawing.Point(533, 252);
             this.AddJson.Name = "AddJson";
             this.AddJson.Size = new System.Drawing.Size(75, 23);
             this.AddJson.TabIndex = 10;
@@ -130,8 +132,9 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(380, 9);
+            this.label3.Location = new System.Drawing.Point(474, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 11;
@@ -139,16 +142,17 @@
             // 
             // TextJson
             // 
-            this.TextJson.Location = new System.Drawing.Point(380, 25);
+            this.TextJson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextJson.Location = new System.Drawing.Point(477, 26);
             this.TextJson.Name = "TextJson";
-            this.TextJson.Size = new System.Drawing.Size(143, 20);
+            this.TextJson.Size = new System.Drawing.Size(121, 20);
             this.TextJson.TabIndex = 12;
             this.TextJson.Text = "TextJSON";
             // 
             // ClearRText
             // 
             this.ClearRText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ClearRText.Location = new System.Drawing.Point(448, 117);
+            this.ClearRText.Location = new System.Drawing.Point(533, 223);
             this.ClearRText.Name = "ClearRText";
             this.ClearRText.Size = new System.Drawing.Size(75, 23);
             this.ClearRText.TabIndex = 13;
@@ -156,11 +160,31 @@
             this.ClearRText.UseVisualStyleBackColor = true;
             this.ClearRText.Click += new System.EventHandler(this.ClearRText_Click);
             // 
+            // Randm1
+            // 
+            this.Randm1.AutoSize = true;
+            this.Randm1.Location = new System.Drawing.Point(420, 28);
+            this.Randm1.Name = "Randm1";
+            this.Randm1.Size = new System.Drawing.Size(15, 14);
+            this.Randm1.TabIndex = 14;
+            this.Randm1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(408, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Random";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 320);
+            this.ClientSize = new System.Drawing.Size(620, 426);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.Randm1);
             this.Controls.Add(this.ClearRText);
             this.Controls.Add(this.TextJson);
             this.Controls.Add(this.label3);
@@ -173,6 +197,7 @@
             this.Controls.Add(this.Create);
             this.Controls.Add(this.tbCName1);
             this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(636, 465);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -194,6 +219,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox TextJson;
         private System.Windows.Forms.Button ClearRText;
+        private System.Windows.Forms.CheckBox Randm1;
+        private System.Windows.Forms.Label label4;
     }
 }
 
