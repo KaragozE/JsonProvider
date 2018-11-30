@@ -73,8 +73,10 @@ namespace JsonProvider
             cb.Left = 227;
             cb.Items.Add("string");
             cb.Items.Add("int");
+            cb.Items.Add("decimal");
             cb.Name = "comboBox" + this.C.ToString();
             cb.Text = "";
+            cb.DropDownStyle = ComboBoxStyle.DropDownList;
             C = C + 1;
             ComboBoxAdded.Insert(0, cb);
             return cb;
@@ -127,6 +129,7 @@ namespace JsonProvider
             chB.Text = "";
             F = F + 1;
             CheckBoxAdded.Insert(0, chB);
+            chB.Click += new EventHandler(Randm1_CheckedChanged);
             return chB;
         }
         private void DeleteButton(object sender, EventArgs e)
@@ -224,7 +227,15 @@ namespace JsonProvider
             Rtext.Text += "[";
 
         }
-        public static string GenerateCoupon(int length, Random random)
+        private void Randm1_CheckedChanged(object sender, EventArgs e)
+        {
+            var selectedCheckbox = ((System.Windows.Forms.CheckBox)sender);
+            var index = selectedCheckbox.Name.Replace("Randm", "");
+            var control = (System.Windows.Forms.TextBox)this.Controls.Find("tbData" + index, false).First();
+            if (selectedCheckbox.Checked) control.Enabled = false;
+            else control.Enabled = true;
+        }
+        public static string GenerateRnd(int length, Random random)
         {
             string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
             StringBuilder result = new StringBuilder(length);
@@ -240,6 +251,21 @@ namespace JsonProvider
             List<kvObject> kvObjList = new List<kvObject>();
 
             Control.ControlCollection controlList = this.Controls;
+
+            //List<string> Array1 = new List<string>();
+            //List<string> Array2 = new List<string>();
+            //List<string> ComBox = new List<string>();
+            //List<string> ChBox = new List<string>();
+
+            //var control1 = (System.Windows.Forms.TextBox)this.Controls.Find("tbCName" + indexStr, false).First();
+            //var control2 = (System.Windows.Forms.TextBox)this.Controls.Find("tbData" + indexStr, false).First();
+            //var control3 = (System.Windows.Forms.TextBox)this.Controls.Find("comboBox" + indexStr, false).First();
+            //var control4 = (System.Windows.Forms.TextBox)this.Controls.Find("Randm" + indexStr, false).First();
+
+            //Array1.Add(control1.Text);
+            //Array2.Add(control2.Text);
+            //ComBox.Add(control3.Text);
+            //ChBox.Add(control4.Text);
 
             List<string> Array1 = new List<string>();
             List<string> Array2 = new List<string>();
@@ -267,9 +293,10 @@ namespace JsonProvider
                 {
                     ChBox.Add(((CheckBox)item).Checked.ToString());
                     m++;
-                    MessageBox.Show(((CheckBox)item).Checked.ToString());
                 }
             }
+
+
             //Creates objects from keys and values
             // **** kvObjList.Select(x => x.Key).ToArray<string>();****
             string[] ArrayJ1 = Array1.ToArray();
@@ -284,31 +311,27 @@ namespace JsonProvider
                     if (CombBox[r] == "string")
                     {
                         Random rnd = new Random();
-                        string[] coupon = new string[1];
+                        string[] coupon = new string[Array1.Count];
                         for (int g = 0; g < coupon.Length; g++)
                         {
-                            coupon[g] = GenerateCoupon(15, rnd);
+                            coupon[g] = GenerateRnd(15, rnd);
                         }
-
-                        ArrayJ2[r] = coupon[0] ;
-                        MessageBox.Show(coupon[0]);
+                        ArrayJ2[r] = coupon[r];
                     }
                     else if (CombBox[r] == "int")
                     {
+                        int[] Num = new int[Array1.Count];
                         Random NumGen = new Random();
-                        int Num = NumGen.Next(1, 10000000);
-
-                        ArrayJ2[r] = Num.ToString();
-                        MessageBox.Show(Num.ToString());
+                        for (int g = 0; g < Num.Length; g++)
+                        {
+                            Num[g] = NumGen.Next(1, 1000000000);
+                        }
+                        ArrayJ2[r] = Num[r].ToString();
                     }
                 }
             }
-
-
-
-
-
             #region String Or Int
+            
             int[] ArrayJ3 = new int[Array1.Count];
             string[] ArrayJ4 = new string[Array1.Count];
             foreach (string val in ArrayJ2)
@@ -403,18 +426,17 @@ namespace JsonProvider
                 Rtext.Text += "]";
                 System.IO.File.WriteAllText(@"" + TextJson.Text + ".json", Rtext.Text);
             }
-            else if (o == 0)
-            {
-                MessageBox.Show("Add JSON to create JSON");
-            }
+            else if (o == 0) MessageBox.Show("Add JSON to create JSON");
         }
         private void AddJson_Click_1(object sender, EventArgs e)
         {
+            //var clickedButton = ((System.Windows.Forms.Button)sender);
+            //var indexStr = clickedButton.Name.Replace("Button", "");
+            //Calculation(indexStr);
 
             Calculation();
             Rtext.Text += ",";
             o++;
         }
-
     }
 }

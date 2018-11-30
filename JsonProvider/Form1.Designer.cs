@@ -95,10 +95,12 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "string",
-            "int"});
+            "int",
+            "decimal"});
             this.comboBox1.Location = new System.Drawing.Point(227, 25);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
@@ -168,6 +170,7 @@
             this.Randm1.Size = new System.Drawing.Size(15, 14);
             this.Randm1.TabIndex = 14;
             this.Randm1.UseVisualStyleBackColor = true;
+            this.Randm1.CheckedChanged += new System.EventHandler(this.Randm1_CheckedChanged);
             // 
             // label4
             // 
