@@ -73,7 +73,6 @@ namespace JsonProvider
             cb.Left = 227;
             cb.Items.Add("string");
             cb.Items.Add("int");
-            cb.Items.Add("decimal");
             cb.Name = "comboBox" + this.C.ToString();
             cb.Text = "";
             cb.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -222,10 +221,8 @@ namespace JsonProvider
         }
         public void Clear()
         {
-
             Rtext.Text = string.Empty;
             Rtext.Text += "[";
-
         }
         private void Randm1_CheckedChanged(object sender, EventArgs e)
         {
